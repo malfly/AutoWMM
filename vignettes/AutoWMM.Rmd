@@ -1,0 +1,230 @@
+---
+title: "AutoWMM: Automating the WMM on Trees"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+vignette: >
+  %\VignetteIndexEntry{AutoWMM}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, setup, warning=FALSE}
+library(AutoWMM)
+```
+
+## Introduction
+In population size estimation, methods based on back-calculation (multiplier methods) are a popular approach to estimating the size of a target population which is partially hidden and not directly enumerable from existing data.  The basis behind this approach is to use a subpopulation with known count and a estimate of the proportion of the target population belonging to this subgroup to estimate the size of the target population. However, this basic method is not applicable when many subgroup counts are available, in which case evidence could be synthesized to provide a more accurate estimate of the target population size. If subgroups are mutually exclusive, a tree-like structure can be created with the target population at the root node, and children (or grandchildren) of the root representing these subgroups with known counts. In this case, to combine available evidence a weighted sum of estimates from each back-calculated path can be made, which is automated and achieved with this package using the weighted multiplier method (WMM) [@flynnmethods]. Variance-minimizing weights are used to provide an estimate of the root population size on any admissible tree-structured data, as well as options for visual rendering of trees for reporting of results.
+
+The implementation behind these functions is described at length elsewhere [@flynncomp], and is based on previously developed methodology [@flynnmethods].  A more extensive application to real-world data can be found in [@flynnapplication].
+
+## makeTree()
+The `makeTree` function creates a tree object from any admissible dataframe; for a dataframe to be admissible, it must contain specific column labels. These columns include the following:
+
+- *'from'* (string, node label)
+
+- *'to'* (string, node label)
+
+- *'Estimate'* (+ integer)
+
+- *'Total'* (+ integer)
+
+- *'Count'* (+ integer)
+
+The root node is the assumed to represent the target population for which estimation is sought. The `makeTree` function will accept a `data.frame` object with these columns, and create a `data.tree` object (from `data.tree` package) from `data.frame`; it also checks the dataframe columns and structure to ensure the `data.tree` object can be used for root node population size estimation.
+
+Further details on each column are as follows:
+
+-  '*from*' (node label) and '*to*' (node label), which encode the tree structure. *from* and *to* describe the edge for that row of data.
+
+-  '*Estimate*' (+ integer), '*Total*' (+ integer), which are used as parameters in a Beta(*Estimate*+1,*Total*-*Estimate*+1) distribution at each branch, or, if '*Total*' is equal for all branches in a sibling group, then a Dirichlet distributions with parameters *Estimate*+1 from each child of a sibling group is used. *Estimate* and *Total* are assumed to come from surveys of size *Total* (a sample of the population at node *from*), and observe *Estimate* number of those individuals at *Total* which move to the node described by *to*. Used for branch probabilities only.
+
+-  '*Count*' (for terminal nodes with marginal counts). *Count* column is NA for rows where *to* nodes are not leaves, and also for all leaves without a marginal count.
+
+A *Population* (logical) column is not needed, but can be added if *Estimate* and *Total* come from population numbers, rather than samples. A *Description* column (string) is also possible to include if particular descriptions are desired on the visual diagram made by `drawTree` function.
+
+An example of this package in use can be seen in the following:
+```{r}
+## create admissible dataset
+treeData <- data.frame("from" = c("Z", "Z", "A", "A"),
+                        "to" = c("A", "B", "C", "D"),
+                        "Estimate" = c(4, 34, 9, 1),
+                        "Total" = c(11, 70, 10, 10),
+                        "Count" = c(NA, 500, NA, 50),
+                        "Population" = c(FALSE, FALSE, FALSE, FALSE),
+                        "Description" = c("First child of the root", "Second child of the root",
+                        "First grandchild", "Second grandchild"))
+
+## make tree object using makeTree
+tree <- makeTree(treeData)
+tree
+```
+
+## drawTree()
+
+The `drawTree` function creates a descriptive diagram of a tree object created using `makeTree`, which allows the user to visualize the tree before it is used for WMM estimation.  Prints descriptions or node labels on nodes, and probabilities based on previous surveys to branches. Specifically, node descriptions are given within respective nodes if provided by *Description* column in dataframe used in `makeTree`, and branch probabilities calculated using the ratio of data columns *Estimate* over *Total* are given along tree branches.
+
+The function has three arguments, the first being the `makeTree` tree object the user would like the render.  The user may also specify an argument `probs`, which takes the values `TRUE`/`FALSE` and determines whether probabilities will be displayed along tree branches.  Lastly, the argument `desc` takes the values `TRUE`/`FALSE` and determines whether descriptions will be displayed in each node; for `desc=TRUE`, a *Description* column must be included as part of the `data.frame` used in the `makeTree` function tree construction.
+
+A use case, using the above tree created by `makeTree`, is as follows:
+```{r}
+## draw tree pre-estimation, with descriptions on nodes (default), and suppressing probabilities on branching
+drawTree(tree, probs = FALSE)
+```
+
+## wmmTree()
+
+This function is the central functionality of the `AutoWMM` package, and performs WMM estimation on the tree created with `makeTree`. It compute an estimate of the size of a target population represented by the root node of tree-structure data. The `wmmTree` function accepts a tree object made using the `makeTree` function, and generates an estimate of the root node (the target population) by combining multiple back-calculated path estimates. This function will generate a weighted estimate using variance-minimizing weights, which combines back-calculated estimates of the root via the multiplier method.  It will incorporate data from all leaves with both 1) known marginal leaf counts at the terminal point of the root to leaf path, and 2) available branch probability estimates for each segment along the root-to-leaf path. These paths are deemed "informative" [@flynnmethods].  
+The `wmmTree` function uses the following arguments:
+
+- `tree`: A tree object created using `makeTree` function.
+
+- `sample_length`: The desired number of estimates of the target (root) node.
+
+- `method`: The method of back-calculation. Current version only supports the default multiplier method to produce back-calculated estimates using an internal function, `method = "mmEstimate"`, unless the tree is a special case using single-source sibling data only.  In the latter case, the method uses closed forms to generate path specific means and variances and WMM estimate (see `single.source` argument below).
+
+- `int.type`: The type of confidence interval desired.  The default, and recommended, interval produced is the central 95\% using quantiles (`int.type = "quants"`}. Setting this argument to `var` generates a 95\% confidence interval based on sample variance, while the `cox` option for this argument generates the Cox interval for log-normal data.
+
+- `single.source`: This logical argument should be set to `TRUE` only when *all sibling groups* which have branches that are used in back-calculated paths are fully informed by a single source of data. In this special case, sampling can be bypassed, and closed forms are used to generate the WMM root estimate and it's uncertainty; at this time, this method provides an approximation only as paths are assumed independent.
+
+Back-calculation from each leaf proceeds as follows.  Surveys or literature estimates are assumed to inform *Estimate* and *Total* columns of dataframe.  These branches are then sampled 'sample_length' number of times (i.e., number of runs) using a variety of methods, depending on the sources of data being used to inform sibling branches.  For example, two sibling branches informed by a single survey which observed the movement from parent to child node of *Estimate* individuals in a survey with sample size *Total*, can be assigned a Beta(*Estimate*+1, *Total*-*Estimate*+1) distribution.  For more complex configurations of source knowledge, importance sampling and rejection schemes are also employed to ensure consistency among sibling branch groups and root estimates for a given run.  For each leaf with non-empty *Count*, we back-calculate by multiplying by the sampled inverse probabilities of each branch along the root-to-leaf path.
+
+The function ultimately generates `sample_length` number of weighted estimates of the root target population.  Using functionality of `data.tree` package on `makeTree` object also provides:
+
+- confidence intervals of estimates of the root provided by leaves with marginal counts, as `node$uncertainty`
+
+- probability samples can be accessed as `node$probability_samples`
+
+- root estimates from terminal nodes with non-empty count as stored as `node$targetEst_samples`
+
+The output of the function is a list of four entries; WMM root node estimate and corresponding uncertainty, a vector of estimates given on each run, and the weights associated with each path which provides a root node estimate (an *informative path*).  Specifically, these four outputs are as follows:
+
+- The first is a `list` with four entries: in the first position is the WMM root node size estimate given by the synthesis across all informative paths. The second entry is the uncertainty associated with the root node size estimate. In the third entry we find a vector of weights which sum to one, with length equal to the number of informative paths and the weight associated with those paths. In the fourth and final position, a vector of length `sample_length` of estimates of the target (root) population size given by the WMM for each run.
+
+- The second entry can alternatively be accessed using the `Get` function through `data.tree` to access the node attribute `uncertainty`; it gives the 95\% confidence intervals for estimates given by leaves with marginal counts, as well as the root node.
+
+- The third entry can alternatively be accessed using the `Get` function through `data.tree` to access the node attribute `probability_samples`; it returns vectors of probabilities sampled for all branches leading into each node.
+
+- The fourth entry can alternatively be accessed using the `Get` function through `data.tree` to access the node attribute `targetEst_samples`; it returns vectors of root estimates calculated for all paths with marginal counts on the respective root-to-leaf path.
+
+The calculation of estimates relies on the internal functions `confInts`, `ko.weights`, `meanlogEstimates`, `mmEstimate`, `root.confInt`, `rootEsts`, `logEstimates`, and `sampleBeta`.
+
+The function can be demonstrated using the tree created in the `makeTree` section above:
+```{r}
+## perform root node estimation
+## small sample_length was chosen for efficiency across machines
+Zhats <- wmmTree(tree, sample_length = 5)
+```
+
+The user can then print the estimates of the root node generated by each iteration, the weights of each branch, the final estimate of the root node population size calculated using the WMM, and the final rounded estimate of the root:
+```{r}
+# print the estimates of the root node generated by the iterations
+Zhats$estimates 
+# prints the weights of each branch
+Zhats$weights 
+# prints the final estimate of the root node by WMM
+Zhats$root 
+# prints the final rounded estimate of the root with conf. int.
+Zhats$uncertainty 
+```
+
+The user may also use the `data.tree` functionality with the `makeTree` object to obtain the average root estimate with a 95\% confidence interval, the samples generated from each path which provided the root estimate, as well as the sampled probabilities for each branch over the iterations:
+```{r}
+## show the average root estimate with 95\% confidence interval, as well as
+## average estimates with confidence intervals for each node with a marginal
+## count
+tree$Get('uncertainty')
+
+## show the samples generated from each path which provides root estimates
+tree$Get('targetEst_samples')
+
+## show the probabilities sampled at each branch leading into the given node
+tree$Get('probability_samples')
+```
+
+A second example using a slightly larger tree can be seen as follows:
+```{r}
+## create 2nd admissible dataset
+## this example handles many branch sampling cases, including all siblings informed from different surveys, same survey, and mixed case, as well as some siblings not informed and the rest from different surveys, same survey, and mixed case.
+treeData2 <- data.frame("from" = c("Z", "Z", "Z",
+                                    "A", "A",
+                                    "B", "B", "B",
+                                    "C", "C", "C",
+                                    "H", "H", "H",
+                                    "K", "K", "K"),
+                        "to" = c("A", "B", "C",
+                                  "D", "E",
+                                  "F", "G", "H",
+                                  "I", "J", "K",
+                                  "L", "M", "N",
+                                  "O", "P", "Q"),
+                        "Estimate" = c(24, 34, 12,
+                                      9, 1,
+                                      NA, 19, 1,
+                                      NA, 2, 1,
+                                      20, 10, 12,
+                                      5, 3, NA),
+                        "Total" = c(70, 70, 70,
+                                    10, 11,
+                                    NA, 30, 8,
+                                    NA, 12, 12,
+                                    40, 40, 40,
+                                    10, 10, NA),
+                        "Count" = c(NA, NA, NA,
+                                    50, NA,
+                                    NA, 15, NA,
+                                    NA, 10, NA,
+                                    NA, NA, 20,
+                                    5, 2, NA))
+
+## make tree object using makeTree
+tree2 <- makeTree(treeData2)
+
+## perform root node estimation
+Zhats <- wmmTree(tree2, sample_length = 10)
+Zhats$estimates # print the estimates of the root node generated by the 15 iterations
+Zhats$weights # prints the weights of each branch
+Zhats$root # prints the final estimate of the root node by WMM
+Zhats$uncertainty # prints the final rounded estimate of the root with conf. int.
+
+## show the average root estimate with 95\% confidence interval, as well as average estimates with confidence intervals for each node with a marginal count
+tree2$Get('uncertainty')
+
+## show the samples generated from each path which provides root estimates
+tree2$Get('targetEst_samples')
+
+## show the probabilities sampled at each branch leading into the given node
+tree2$Get('probability_samples')
+```
+
+
+## countTree()
+After WMM estimation has been performed on a `makeTree` object, the `countTree` function renders a diagram of the tree, much like `drawTree`, but showing the root estimate generated using `wmmTree` in the root node, as well as the marginal leaf counts (data column *Count*) which contributed to the weighted estimate displayed within the corresponding leaf nodes. The mean of the sampled branch probabilities generated using the `wmmTree` method are also displayed along each branch.
+
+Functionality can be demonstrated using the trees defined above:
+```{r}
+## visualize the tree post-estimation, with final weighted root estimate (rounded) displayed in the root node and marginal counts displayed in their respective leaves.  
+## means of sampled probability appear on branches, so note that sum of sibling branches may not equal 1.
+countTree(tree)
+```
+
+## estTree()
+The `estTree` function is for use after `wmmTree` has been applied to a `makeTree` tree object. The function allows the user to visualize the tree with the root size estimate given by `wmmTree` displayed in the root node, and the root estimate given by each particular path which contributed to the weighted estimate displayed in the corresponding leaf node. It also displays average of probability samples generated using `wmmTree` method on each branch.
+
+Functionality can again be demonstrated using the trees defined above:
+
+```{r}
+## visualize the tree post-estimation, with final weighted root estimate (rounded) displayed in the root node and path-specific estimates in their respective leaves.
+## The means of sampled probability appear on branches, so note that sum of sibling branches may not equal 1
+estTree(tree)
+```
+
+## References
+
+
