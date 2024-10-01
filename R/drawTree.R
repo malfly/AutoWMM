@@ -14,6 +14,7 @@
 #' drawTree(tree)
 #' @export
 #' @import data.tree
+#' @import DiagrammeR
 
 drawTree <- function(tree, probs=TRUE, desc = TRUE){
   SetGraphStyle(tree,scale=2)

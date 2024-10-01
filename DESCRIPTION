@@ -3,7 +3,7 @@ Type: Package
 Title: Perform the Weighted Multiplier Method on Trees
 Version: 1.0.0
 Authors@R: person("Mallory J", "Flynn", email = "mallory.flynn@stat.ubc.ca", role = c("cre", "aut"))
-Maintainer: The package maintainer <mallory.flynn@stat.ubc.ca>
+Maintainer: Mallory J Flynn <mallory.flynn@stat.ubc.ca>
 Description: When many possible multiplier method estimates of a target
     population are available, a weighted sum of estimates from each
     back-calculated path can be achieved with this package.
@@ -15,6 +15,7 @@ Depends:
    R (>= 4.3.0)
 Imports: 
     data.tree,
+    DiagrammeR,
     dplyr,
     gtools,
     MASS,

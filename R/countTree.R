@@ -11,6 +11,7 @@
 #' countTree(tree)
 #' @export
 #' @import data.tree
+#' @import DiagrammeR
 
 countTree <- function(tree){
   # check if probability samples are empty everywhere - this indicates

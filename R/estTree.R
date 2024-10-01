@@ -12,6 +12,7 @@
 #' estTree(tree)
 #' @export
 #' @import data.tree
+#' @import DiagrammeR
 
 estTree <- function(tree){
   # check if probability samples are empty everywhere - this indicates
