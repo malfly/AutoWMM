@@ -13,7 +13,7 @@
 #'  source.  Default is FALSE.
 #' @return Returns a makeTree object with branches and nodes now associated with
 #'  estimates and samples generated with the weighted multiplier method
-#' @examples \donttest{
+#' @examples \dontrun{
 #'   ## example admissible dataset
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)

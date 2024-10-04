@@ -4,7 +4,7 @@
 #'  Also displays average of probability samples on each branch.
 #' @param tree A makeTree object
 #' @return Returns a tree plot
-#' @examples \donttest{
+#' @examples \dontrun{
 #'   ## example admissible dataset
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
