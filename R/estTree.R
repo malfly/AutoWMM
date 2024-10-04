@@ -4,12 +4,13 @@
 #'  Also displays average of probability samples on each branch.
 #' @param tree A makeTree object
 #' @return Returns a tree plot
-#' @examples
-#' ## example admissible dataset
-#' data(treeData1)
-#' tree <- makeTree(treeData1)
-#' Zhats <- wmmTree(tree, sample_length = 10)
-#' estTree(tree)
+#' @examples \donttest{
+#'   ## example admissible dataset
+#'   data(treeData1)
+#'   tree <- makeTree(treeData1)
+#'   Zhats <- wmmTree(tree, sample_length = 10)
+#'   estTree(tree)
+#'  }
 #' @export
 #' @import data.tree
 #' @import DiagrammeR
