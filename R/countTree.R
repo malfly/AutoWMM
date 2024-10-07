@@ -4,11 +4,13 @@
 #' @param tree A makeTree object
 #' @return Returns a tree plot
 #' @examples \dontrun{
+#' if (interactive()){
 #'   ## example admissible dataset
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
 #'   Zhats <- wmmTree(tree, sample_length = 10)
 #'   countTree(tree)
+#'   }
 #'  }
 #' @export
 #' @import data.tree

@@ -14,6 +14,7 @@
 #' @return Returns a makeTree object with branches and nodes now associated with
 #'  estimates and samples generated with the weighted multiplier method
 #' @examples \dontrun{
+#' if (interactive()){
 #'   ## example admissible dataset
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
@@ -36,6 +37,7 @@
 #'
 #'   ## show the probabilities sampled at each branch leading into the given node
 #'   tree2$Get('probability_samples')
+#'   }
 #' }
 #' @export
 #' @import data.tree
