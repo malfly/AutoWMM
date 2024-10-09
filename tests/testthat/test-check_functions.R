@@ -7,14 +7,11 @@ Zhats <- create_Zs()
 
 # Test creation of tree data type
 test_that("makeTree function returns correct s3 class", {
-  #tree <- makeTree(treeData1)
   expect_s3_class(tree, "Node")
 })
 
 # Test whether the output of confInts contains the right number of values
 test_that("confInts() returns correct number of values", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   expect_equal(length(confInts(Zhats$estimates)), 2)
 })
 
@@ -38,16 +35,12 @@ test_that("confInts() returns correct number of values", {
 
 # Test whether the output of mmEstimate returns NA for non-leaf
 test_that("mmEstimate() returns correct value for non-leaf", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   mmEstimate(tree$A)
   expect_equal(tree$A$targetEst, NA)
 })
 
 # Test whether the output of mmEstimate returns NA for leaf at end of informative path
 test_that("mmEstimate() returns correct value for leaf at end of informative path", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   mmEstimate(tree$B)
   expect_type(tree$B$targetEst, "double")
 })
@@ -68,8 +61,6 @@ test_that("mmEstimate() returns correct value for leaf at end of informative pat
 
 # Test whether the output of sampleBeta returns double less than 1
 test_that("sampleBeta() returns double less than 1", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   expect_type(sampleBeta(10, 55, pop = FALSE, tree$A), "double")
   expect_lt(sampleBeta(10, 55, pop = FALSE, tree$A), 1)
 })
@@ -83,8 +74,6 @@ test_that("sampleBeta() returns double less than 1", {
 
 # Test whether the output of ssEstimate returns NA for non-leaf
 test_that("ssEstimate() returns correct value for non-leaf", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   ssEstimate(tree$A)
   expect_equal(tree$A$targetEst, NA)
   expect_equal(tree$A$variance, NA)
@@ -92,8 +81,6 @@ test_that("ssEstimate() returns correct value for non-leaf", {
 
 # Test whether the output of ssEstimate returns NA for leaf endpoint of informative path
 test_that("ssEstimate() returns correct value for a valid leaf endpoint", {
-  #tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 2)
   ssEstimate(tree$B)
   expect_type(tree$B$targetEst, "double")
   expect_type(tree$B$variance, "double")
@@ -101,20 +88,19 @@ test_that("ssEstimate() returns correct value for a valid leaf endpoint", {
 
 # Test creation of correct type with countTree
 test_that("countTree function returns correct type", {
-#  tree <- makeTree(treeData1)
+  skip_on_cran()
   Zhats <- wmmTree(tree, sample_length = 2)
   expect_type(countTree(tree), "list")
 })
 
 # Test creation of correct type with drawTree
 test_that("drawTree function returns correct type", {
-  #tree <- makeTree(treeData1)
   expect_type(drawTree(tree), "list")
 })
 
 # Test creation of correct type with estTree
 test_that("estTree function returns correct type", {
-#  tree <- makeTree(treeData1)
+  skip_on_cran()
   Zhats <- wmmTree(tree, sample_length = 2)
   expect_type(estTree(tree), "list")
 })
