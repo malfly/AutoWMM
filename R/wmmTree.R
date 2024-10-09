@@ -19,6 +19,7 @@
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
 #'   Zhats <- wmmTree(tree, sample_length = 3)
+#'
 #'   ## another example with a larger tree
 #'   data(treeData2)
 #'   tree2 <- makeTree(treeData2)

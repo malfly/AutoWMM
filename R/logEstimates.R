@@ -5,11 +5,13 @@
 #' @return Returns a vector of mean log estimate values of the root population size
 #'  from each informative path
 #' @examples \dontrun{
-#'   ## example admissible dataset
-#'  data(treeData1)
-#'  tree <- makeTree(treeData1)
-#'  Zhats <- wmmTree(tree, sample_length = 10)
-#'  logEstimates(tree)
+#'   if (interactive()){
+#'     ## example admissible dataset
+#'     data(treeData1)
+#'     tree <- makeTree(treeData1)
+#'     Zhats <- wmmTree(tree, sample_length = 3)
+#'     logEstimates(tree)
+#'   }
 #' }
 #' @export
 #' @import data.tree

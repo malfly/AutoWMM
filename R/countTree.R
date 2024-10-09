@@ -8,8 +8,8 @@
 #'   ## example admissible dataset
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
-#'   Zhats <- wmmTree(tree, sample_length = 3)
-#'   countTree(tree)
+#'   #Zhats <- wmmTree(tree, sample_length = 3)
+#'   #countTree(tree)
 #'   }
 #'  }
 #' @export
