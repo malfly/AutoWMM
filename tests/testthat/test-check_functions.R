@@ -88,9 +88,11 @@ test_that("ssEstimate() returns correct value for a valid leaf endpoint", {
 
 # Test creation of correct type with countTree
 test_that("countTree function returns correct type", {
+  if (Sys.getenv("NOT_CRAN") == "true") {
   skip_on_cran()
   Zhats <- wmmTree(tree, sample_length = 2)
   expect_type(countTree(tree), "list")
+  }
 })
 
 # Test creation of correct type with drawTree
@@ -100,9 +102,11 @@ test_that("drawTree function returns correct type", {
 
 # Test creation of correct type with estTree
 test_that("estTree function returns correct type", {
+  if (Sys.getenv("NOT_CRAN") == "true") {
   skip_on_cran()
   Zhats <- wmmTree(tree, sample_length = 2)
   expect_type(estTree(tree), "list")
+  }
 })
 
 # Test wmmTree generates list with 4 entries
