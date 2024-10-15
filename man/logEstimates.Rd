@@ -19,10 +19,13 @@ Estimation helper function:
 }
 \examples{
 \dontrun{
-  ## example admissible dataset
- data(treeData1)
- tree <- makeTree(treeData1)
- Zhats <- wmmTree(tree, sample_length = 10)
- logEstimates(tree)
+  if (interactive()){
+    ## example admissible dataset
+    ## commented to limit longer run time example
+    data(treeData1)
+    tree <- makeTree(treeData1)
+    #Zhats <- wmmTree(tree, sample_length = 3)
+    #logEstimates(tree)
+  }
 }
 }
