@@ -18,6 +18,10 @@ The error persists when trying to use rhub::validate_email() directly.
 
 No issues were found.
 
+## CRAN comments
+
+The examples for `countTree`, `wmmTree`, and `estTree` are computationally intensive and have been wrapped in `\donttest{}` or `\dontrun{}`. They should not be executed during CRAN checks.
+
 ## Special notes
 
 None to report.
