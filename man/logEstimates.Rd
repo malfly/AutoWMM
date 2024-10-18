@@ -18,14 +18,11 @@ Estimation helper function:
  Creates a vector of mean estimate values given by each informative path
 }
 \examples{
-\dontrun{
-  if (interactive()){
-    ## example admissible dataset
-    ## commented to limit longer run time example
-    data(treeData1)
-    tree <- makeTree(treeData1)
-    #Zhats <- wmmTree(tree, sample_length = 3)
-    #logEstimates(tree)
-  }
+\donttest{
+  message("note - longer run time example")
+  data(treeData1)
+  tree <- makeTree(treeData1)
+  Zhats <- wmmTree(tree, sample_length = 3)
+  logEstimates(tree)
 }
 }

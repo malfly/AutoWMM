@@ -17,8 +17,7 @@ Estimation helper function:
  Calculating variance minimizing weights.  Only assigns weights to informative paths
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  ko.weights(tree)

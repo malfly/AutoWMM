@@ -6,8 +6,7 @@
 #' @param digits The number of significant digits to report
 #' @return A confidence interval for nodes of the tree that only use a single
 #'   source of sibling data.
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  ss.confInts(tree$B)

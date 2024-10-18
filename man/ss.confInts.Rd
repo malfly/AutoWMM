@@ -21,8 +21,7 @@ Estimation helper function:
  nodes in single source sibling tree (single.source = TRUE)
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  ss.confInts(tree$B)

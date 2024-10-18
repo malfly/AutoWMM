@@ -5,8 +5,7 @@
 #'  of each branch on that path.
 #' @param o A node from a makeTree object
 #' @return Returns node with modified attributes
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  mmEstimate(tree$A)

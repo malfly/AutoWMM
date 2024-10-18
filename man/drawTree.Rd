@@ -23,7 +23,6 @@ Visualize tree with descriptions and probabilities; can be used
  pre-WMM analysis
 }
 \examples{
-## example admissible dataset
 data(treeData1)
 tree <- makeTree(treeData1)
 drawTree(tree)

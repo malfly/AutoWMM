@@ -5,8 +5,7 @@
 #'  in wmmTree function.  See documentation for further details.
 #' @param o A node from a makeTree object
 #' @return Returns node with modified attributes
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  ssEstimate(tree$B)

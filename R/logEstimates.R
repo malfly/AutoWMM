@@ -4,15 +4,12 @@
 #' @param tree A makeTree object
 #' @return Returns a vector of mean log estimate values of the root population size
 #'  from each informative path
-#' @examples \dontrun{
-#'   if (interactive()){
-#'     ## example admissible dataset
-#'     ## commented to limit longer run time example
-#'     data(treeData1)
-#'     tree <- makeTree(treeData1)
-#'     #Zhats <- wmmTree(tree, sample_length = 3)
-#'     #logEstimates(tree)
-#'   }
+#' @examples \donttest{
+#'   message("note - longer run time example")
+#'   data(treeData1)
+#'   tree <- makeTree(treeData1)
+#'   Zhats <- wmmTree(tree, sample_length = 3)
+#'   logEstimates(tree)
 #' }
 #' @export
 #' @import data.tree

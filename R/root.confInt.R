@@ -8,15 +8,12 @@
 #'  function.
 #' @return Returns a confidence interval for the root population size estimate
 #'  in un-logged form.
-#' @examples \dontrun{
-#' if (interactive()){
-#'  ## example admissible dataset
-#'  ## commented to limit longer run time example
+#' @examples \donttest{
+#'  message("note - longer run time example")
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
-#'  #Zhats <- wmmTree(tree, sample_length = 3)
-#'  #root.confInt(tree)
-#'  }
+#'  Zhats <- wmmTree(tree, sample_length = 3)
+#'  root.confInt(tree)
 #' }
 #' @export
 #' @importFrom dplyr "select"

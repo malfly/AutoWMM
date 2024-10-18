@@ -31,3 +31,7 @@ LazyData: true
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+References: 
+    Flynn, M.J. and Gustafson, P. (2024). AutoWMM and JAGStree: R packages for population estimation on relational tree-structured data. Manuscript in preparation, Department of Statistics, University of British Columbia.
+    Flynn, M.J. and Gustafson, P. (2024). Leveraging relational evidence: Population size estimation on tree-structured data with the weighted multiplier method. Manuscript in preparation, Department of Statistics, University of British Columbia.
+    Flynn, M.J., Gustafson, P., and Irvine, M.A. (2024). Estimating the number of opioid overdoses in British Columbia using relational evidence with tree structure. Manuscript in preparation, Department of Statistics, University of British Columbia.

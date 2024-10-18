@@ -6,8 +6,7 @@
 #' @param pop A logical value which takes TRUE if sample size is population size
 #' @param node A node from a makeTree object; carried forever from
 #' @return Returns sample from Beta distribution with parameters dependent on x, n
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  sampleBeta(10, 55, pop = FALSE, tree$A)

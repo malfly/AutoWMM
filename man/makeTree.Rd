@@ -31,7 +31,6 @@ Assuming a specific structure, create a tree with the following columns:
  marginal counts are included on leaves.
 }
 \examples{
-## example admissible dataset
 data(treeData1)
 tree <- makeTree(treeData1)
 }

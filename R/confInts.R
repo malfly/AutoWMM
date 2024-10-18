@@ -5,13 +5,12 @@
 #'  log data for confidence interval construction
 #' @param v A vector
 #' @return Returns a confidence interval. For non-root nodes
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
-#'  ## commented to limit longer run time example
-#'  #Zhats <- wmmTree(tree, sample_length = 10)
-#'  #confInts(Zhats$estimates)
+#'  message("note - longer run time example")
+#'  Zhats <- wmmTree(tree, sample_length = 10)
+#'  confInts(Zhats$estimates)
 #' }
 #' @export
 #' @importFrom stats quantile

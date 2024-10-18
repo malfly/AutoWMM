@@ -23,8 +23,7 @@ Helper function:
  Method for sampling from a Beta distribution given the survey estimates
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  sampleBeta(10, 55, pop = FALSE, tree$A)

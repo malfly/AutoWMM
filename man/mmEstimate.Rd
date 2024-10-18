@@ -19,8 +19,7 @@ Helper function:
  of each branch on that path.
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  mmEstimate(tree$A)

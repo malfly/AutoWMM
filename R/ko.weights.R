@@ -3,8 +3,7 @@
 #'  Calculating variance minimizing weights.  Only assigns weights to informative paths
 #' @param tree A makeTree object
 #' @return Returns vector of variance-minimizing weights on informative paths
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  ko.weights(tree)

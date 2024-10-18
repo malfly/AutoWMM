@@ -8,7 +8,6 @@
 #'  node descriptions
 #' @return Returns a descriptive tree plot
 #' @examples
-#' ## example admissible dataset
 #' data(treeData1)
 #' tree <- makeTree(treeData1)
 #' drawTree(tree)

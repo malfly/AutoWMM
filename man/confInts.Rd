@@ -19,12 +19,11 @@ Estimation helper function:
  log data for confidence interval construction
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
- ## commented to limit longer run time example
- #Zhats <- wmmTree(tree, sample_length = 10)
- #confInts(Zhats$estimates)
+ message("note - longer run time example")
+ Zhats <- wmmTree(tree, sample_length = 10)
+ confInts(Zhats$estimates)
 }
 }

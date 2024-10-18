@@ -6,8 +6,7 @@
 #' @param tree A makeTree object
 #' @return Returns a vector of root population size estimates from each sample
 #'  run of the wmmTree function
-#' @examples \dontrun{
-#'  ## example admissible dataset
+#' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
 #'  Nhats(tree)

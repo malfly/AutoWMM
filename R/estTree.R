@@ -4,15 +4,12 @@
 #'  Also displays average of probability samples on each branch.
 #' @param tree A makeTree object
 #' @return Returns a tree plot
-#' @examples \dontrun{
-#' if (interactive()){
-#'   ## example admissible dataset
-#'   ## commented to limit longer run time example
+#' @examples \donttest{
+#'   message("note - longer run time example")
 #'   data(treeData1)
 #'   tree <- makeTree(treeData1)
-#'   #Zhats <- wmmTree(tree, sample_length = 3)
-#'   #estTree(tree)
-#'   }
+#'   Zhats <- wmmTree(tree, sample_length = 3)
+#'   estTree(tree)
 #'  }
 #' @export
 #' @import data.tree

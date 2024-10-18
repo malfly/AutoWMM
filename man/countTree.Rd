@@ -17,14 +17,11 @@ Visualize post-wmmTree tree with root estimate and marginal counts
  Also displays average of probability samples on each branch
 }
 \examples{
-\dontrun{
-if (interactive()){
-  ## example admissible dataset
-  ## commented to limit longer run time example
+\donttest{
+  message("note - longer run time example")
   data(treeData1)
   tree <- makeTree(treeData1)
-  #Zhats <- wmmTree(tree, sample_length = 3)
-  #countTree(tree)
-  }
+  Zhats <- wmmTree(tree, sample_length = 3)
+  countTree(tree)
  }
 }

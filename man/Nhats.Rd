@@ -20,8 +20,7 @@ Estimation helper function:
  weighted sum to each of the samples)
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  Nhats(tree)

@@ -19,8 +19,7 @@ Helper function:
  in wmmTree function.  See documentation for further details.
 }
 \examples{
-\dontrun{
- ## example admissible dataset
+\donttest{
  data(treeData1)
  tree <- makeTree(treeData1)
  ssEstimate(tree$B)

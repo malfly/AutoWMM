@@ -18,7 +18,6 @@
 #' @param data A dataframe object
 #' @return Returns a makeTree object
 #' @examples
-#' ## example admissible dataset
 #' data(treeData1)
 #' tree <- makeTree(treeData1)
 #' @export
