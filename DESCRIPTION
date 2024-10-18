@@ -8,7 +8,9 @@ Description: When many possible multiplier method estimates of a target
     population are available, a weighted sum of estimates from each
     back-calculated path can be achieved with this package.
     Variance-minimizing weights are used and with any admissible
-    tree-structured data.
+    tree-structured data.  The methodological basis used to create this package
+    can be found in the following:
+    Flynn, M.J. (2023). "Hidden at the Root: statistical methods for population size estimation on trees." <doi:https://dx.doi.org/10.14288/1.0437150>
 License: GPL (>= 2)
 URL: https://github.com/malfly/AutoWMM
 Depends:
@@ -31,7 +33,3 @@ LazyData: true
 RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-References: 
-    Flynn, M.J. and Gustafson, P. (2024). AutoWMM and JAGStree: R packages for population estimation on relational tree-structured data. Manuscript in preparation, Department of Statistics, University of British Columbia.
-    Flynn, M.J. and Gustafson, P. (2024). Leveraging relational evidence: Population size estimation on tree-structured data with the weighted multiplier method. Manuscript in preparation, Department of Statistics, University of British Columbia.
-    Flynn, M.J., Gustafson, P., and Irvine, M.A. (2024). Estimating the number of opioid overdoses in British Columbia using relational evidence with tree structure. Manuscript in preparation, Department of Statistics, University of British Columbia.
