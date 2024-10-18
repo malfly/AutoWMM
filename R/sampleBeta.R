@@ -9,6 +9,7 @@
 #' @examples \donttest{
 #'  data(treeData1)
 #'  tree <- makeTree(treeData1)
+#'  Zhats <- wmmTree(tree, sample_length = 3)
 #'  sampleBeta(10, 55, pop = FALSE, tree$A)
 #' }
 #' @export

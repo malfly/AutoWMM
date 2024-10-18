@@ -28,7 +28,8 @@
 #'   Zhats$root # prints the final estimate of the root node by WMM
 #'   Zhats$uncertainty # prints the final rounded estimate of the root with conf. int.
 #'
-#'   message("show the average root estimate with 95% confidence interval, as well as average estimates with confidence interval for each node with a marginal count")
+#'   message(paste("show the average root estimate with 95% confidence interval,",
+#'           "as well as average estimates with confidence interval for each parameter"))
 #'   tree2$Get('uncertainty')
 #'
 #'   message("show the samples generated from each path which provides root estimates")
