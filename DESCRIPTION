@@ -10,7 +10,7 @@ Description: When many possible multiplier method estimates of a target
     Variance-minimizing weights are used and with any admissible
     tree-structured data.  The methodological basis used to create this package
     can be found in the following:
-    Flynn, M.J. (2023). "Hidden at the Root: statistical methods for population size estimation on trees." <doi:https://dx.doi.org/10.14288/1.0437150>
+    Flynn, M.J. (2023). "Hidden at the Root: statistical methods for population size estimation on trees." <http://hdl.handle.net/2429/86174>
 License: GPL (>= 2)
 URL: https://github.com/malfly/AutoWMM
 Depends:
