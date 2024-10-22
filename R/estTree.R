@@ -19,7 +19,7 @@ estTree <- function(tree){
   # check if probability samples are empty everywhere - this indicates
   # weightedTree has not yet been used
   if(is.na(tree$Get('Estimate', filterFun = isRoot))){
-    print('weightedTree() function has not yet been applied. conduct root estimation first.')
+    message('weightedTree() function has not yet been applied. conduct root estimation first.')
   }else{
     SetGraphStyle(tree,scale=2)
     SetEdgeStyle(tree, arrowhead = "vee", color = "grey35", penwidth = 2,

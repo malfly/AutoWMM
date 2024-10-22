@@ -26,34 +26,34 @@
 makeTree <- function(data){
   # check structure of data here
   if(!is.data.frame(data)){
-    print('data must be dataframe type.')
+    message('data must be dataframe type.')
   }
   # if no column x, print 'no column x'
   if(is.null(data$from)){
-    print('data must have \'from\' column')
+    message('data must have \'from\' column')
   }
   if(is.null(data$to)){
-    print('data must have \'to\' column')
+    message('data must have \'to\' column')
   }
   if(is.null(data$Estimate)){
-    print('data must have \'Estimate\' column')
+    message('data must have \'Estimate\' column')
   }
   if(is.null(data$Total)){
-    print('data must have \'Total\' column')
+    message('data must have \'Total\' column')
   }
   if(is.null(data$Count)){
-    print('data must have \'Count\' column')
+    message('data must have \'Count\' column')
   }
   if(all(is.na(data$Total))){
-    print('\'Total\' values cannot all be NA')
+    message('\'Total\' values cannot all be NA')
   }
   if(all(is.na(data$Estimate))){
-    print('\'Estimate\' values cannot all be NA')
+    message('\'Estimate\' values cannot all be NA')
   }
   # if no 'Population' column exists, assume all values are samples
   if(is.null(data$Population)){
     data$Population <- rep(FALSE, times = dim(data)[1])
-    print('WARNING: No \'Population\' column exists. We assume all
+    message('WARNING: No \'Population\' column exists. We assume all
           values are sample estimates')
   }
 

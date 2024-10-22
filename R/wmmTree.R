@@ -50,7 +50,7 @@ wmmTree <- function(tree, sample_length = 10, method ='mmEstimate',
   # choose which method to use - currently supports mmEstimate
   methodFunction <- NULL
   if(method =='mmEstimate'){
-    print('using variance-weighted mean with multiplier method sampled path estimates')
+    message('using variance-weighted mean with multiplier method sampled path estimates')
     methodFunction <- mmEstimate
   }else{
     stop(paste(method,'is not a known method'))
@@ -63,7 +63,7 @@ wmmTree <- function(tree, sample_length = 10, method ='mmEstimate',
   if(single.source){
     # If all informative paths are obtained using a single, fully informative
     # source for all sibling data, closed form calculation can be used
-    print('using closed-form expressions to generate estimates - be sure tree satisfies required assumptions')
+    message('using closed-form expressions to generate estimates - be sure tree satisfies required assumptions')
 
     # Use parameters for each Dirichlet/Beta distributions from data table
     methodFunction <- ssEstimate

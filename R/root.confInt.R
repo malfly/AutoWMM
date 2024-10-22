@@ -58,7 +58,7 @@ root.confInt <- function(tree, int.type='quantiles'){
 
   # calculate interval based on int.type argument from wmmTree
   if(int.type =='var'){   #provides variance based interval
-    print('using variance-weighted confidence interval - compare to quantiles')
+    message('using variance-weighted confidence interval - compare to quantiles')
 
     # calculate variance
     sig <- cov(log(x)) # covariance matrix
@@ -74,7 +74,7 @@ root.confInt <- function(tree, int.type='quantiles'){
     lc <- exp(lc)
     uc <- exp(uc)
   }else if(int.type == 'cox'){        # provides cox interval
-    print('using cox interval for uncertainty - compare to quantiles')
+    message('using cox interval for uncertainty - compare to quantiles')
 
     # get weights
     weights <- as.matrix(ko.weights(tree))
