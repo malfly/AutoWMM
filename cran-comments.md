@@ -1,6 +1,6 @@
 ## Submission summary
 
-This is the first submission of mypackage to CRAN.
+This is the second submission of mypackage to CRAN.  I have now updated ATLAS tests failed.
 
 ## R CMD check results
 
