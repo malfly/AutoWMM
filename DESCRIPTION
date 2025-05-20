@@ -1,7 +1,7 @@
 Package: AutoWMM
 Type: Package
 Title: Perform the Weighted Multiplier Method on Trees
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: person("Mallory J", "Flynn", email = "mallory.flynn@stat.ubc.ca", role = c("cre", "aut"))
 Maintainer: Mallory J Flynn <mallory.flynn@stat.ubc.ca>
 Description: When many possible multiplier method estimates of a target population are available, a weighted sum of estimates from each back-calculated path can be achieved with this package.  Variance-minimizing weights are used and with any admissible tree-structured data.  The methodological basis used to create this package can be found in Flynn (2023) <http://hdl.handle.net/2429/86174>.
